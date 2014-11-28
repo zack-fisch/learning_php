@@ -60,26 +60,66 @@ To execute cd to containing directory and run 'php rock_paper_scissors_lizard_sp
 // }
 
 // Assign moves to integers (0 = Rock, 1 = Paper, 2 = Scissors, 3 = Lizard, 4 = Spock)
-$player1 = rand(0, 4);
-$player2 = rand(0, 4);
+// Declarations
+$value1 = strtolower($argv[1]);
+$value2 = strtolower($argv[2]);
+$value3 = $value2;
+$accepted_values = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
+
+// Check for valid input
+if ( in_array($value1, $accepted_values) && in_array($value2, $accepted_values) ) {
+	echo "Values are acceptable \n";
+} else {
+	exit("Unacceptable inputs. Please enter valid inputs. \n");
+}
+
+echo "Value 1 is " . $value1 . "\n" . "Value 2 is " . $value2 . "\n";
+
+// Convert second value into array index for matrix search
+switch ($value2) {
+	case "rock":
+		$value2 = 0;
+		break;
+	case "paper":
+		$value2 = 1;
+		break;
+	case "scissors":
+		$value2 = 2;
+		break;
+	case "lizard":
+		$value2 = 3;
+		break;
+	case "spock";
+		$value2 = 4;
+		break;
+}
 
 // Matrix declaration highglighting win/loss/tie patterns
 $matrix =
 [
-    ['T', 'L', 'W', 'W', 'L'],
-    ['W', 'T', 'L', 'L', 'W'],
-    ['L', 'W', 'T', 'W', 'L'],
-    ['L', 'W', 'L', 'T', 'W'],
-    ['W', 'L', 'W', 'L', 'T']
+    "rock" =>     ['Ties', 'Loses', 'Wins', 'Wins', 'Loses'],
+    "paper" =>    ['Wins', 'Ties', 'Loses', 'Loses', 'Wins'],
+    "scissors" => ['Loses', 'Wins', 'Ties', 'Wins', 'Loses'],
+    "lizard" =>   ['Loses', 'Wins', 'Loses', 'Ties', 'Wins'],
+    "spock" =>    ['Wins', 'Loses', 'Wins', 'Loses', 'Ties']
+];
+
+$verbs = [
+		"rock" =>     ["scissors" => 'Smashes', "lizard" => 'Smashes' ],
+    "paper" =>    ["rock" => 'Covers', "spock" => 'Disproves' ],
+    "scissors" => ["paper" => 'Cuts', "lizard" => 'Snips' ],
+    "lizard" =>   ["paper" => 'Eats', "spock" => 'Poisons' ],
+    "spock" =>    ["rock" => 'Destroys', "scissors" => "Destroys" ]
 ];
 
 // Output result
-echo("Player 1 has " . $matrix[$player1][$player2] . " against Player 2");
-echo "\n";
+if ($matrix[$value1][$value2] == "Wins") {
+	echo ucfirst($value1) . " " . $verbs[$value1][$value3] . " " . ucfirst($value3) . "\n";
+} elseif ($matrix[$value1][$value2] == "Loses") {
+	echo ucfirst($value3) . " " . $verbs[$value3][$value1] . " " . ucfirst($value1) . "\n";
+}
 
-echo $argv[1]
-
-
+echo ucfirst($value1) . " " . $matrix[$value1][$value2] . " against " . ucfirst($value3) . "!\n";
 
 
 ?>
