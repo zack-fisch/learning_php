@@ -72,27 +72,8 @@ if ( in_array($value1, $accepted_values) && in_array($value2, $accepted_values) 
 } else {
 	exit("Unacceptable inputs. Please enter valid inputs. \n");
 }
-
 echo "Value 1 is " . $value1 . "\n" . "Value 2 is " . $value2 . "\n";
 
-// Convert second value into array index for matrix search
-// switch ($value2) {
-// 	case "rock":
-// 		$value2 = 0;
-// 		break;
-// 	case "paper":
-// 		$value2 = 1;
-// 		break;
-// 	case "scissors":
-// 		$value2 = 2;
-// 		break;
-// 	case "lizard":
-// 		$value2 = 3;
-// 		break;
-// 	case "spock";
-// 		$value2 = 4;
-// 		break;
-// }
 
 $value2 = array_search($value2, $accepted_values);
 
